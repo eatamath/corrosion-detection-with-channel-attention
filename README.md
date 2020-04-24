@@ -18,6 +18,18 @@ preprocess.ipynb --- 图片预处理+迁移模型的初步训练
 
 ​				/output.py --- 文件输出模块
 
+
+
+### metrics.py介绍
+
+关于metrics的计算方式
+
+```python
+computeMetrics(Ypred:list,Ytest:list) -> {'acc':acc...}
+```
+
+
+
 ### output.py使用方式
 
 - 初始化DataProcessor类时传入三个参数
