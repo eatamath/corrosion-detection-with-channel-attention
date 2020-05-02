@@ -109,3 +109,100 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(net.parameters(), lr=P_lr)
 ```
 
+##### [2020-5-2 15:39 zs commit to master]
+
+###### Global变量
+
+```python
+### 部分训练
+_PARTIAL_TRAIN = True
+_PARTIAL_TRAIN_RATIO = 0.003
+```
+
+部分训练数据比例
+
+```python
+### 冻结网络
+_NET_FREEZE = True
+_NET_NO_GRAD = []
+```
+
+冻结层 需要之后手动加层名
+
+网络结构用 `utility.output.output_netork` 输出
+
+这个以后慢慢来
+
+###### 数据预处理
+
+```python
+#### image transformation for original images
+data_transform_origin = transforms.Compose([
+    transforms.Resize((256,256)),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.5,0.5,0.5], std=[0.5, 0.5, 0.5])
+])
+
+#### image transformation for augmented images
+data_transform_aug = transforms.Compose([
+    transforms.Resize((256,256)),
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomVerticalFlip(),
+    transforms.ToTensor(),
+#     transforms.RandomErasing(p=0.5, scale=(0.02, 0.33), ratio=(0.3, 3.3), value=0, inplace=False),
+    transforms.Normalize(mean=[0.5,0.5,0.5], std=[0.5, 0.5, 0.5])
+])
+```
+
+`data_transform_origin`对应对原图像的变换
+
+`data_transform_aug` 对应增强图像的变换
+
+因为我的 `torchvision` 版本太低，到时候还需要加一些变换方法
+
+EDataset是继承的数据集类，可以对应为 `ImageFolder` 对象
+
+`getModel(NUM_CLASS,name='se_resnet50')` 是抽象出来的模型函数，方便以后修改
+
+###### 模型优化
+
+`lr_scheduler.StepLR(optimizer, SCHEDULE_EPOCH, SCHEDULE_REGRESS)`
+
+用来控制学习率，参数之后可以再调
+
+###### 模型分析
+
+`utility.plot.plotResultCurve(_metrics:list,att_names:list,title='')`
+
+作图函数，主要用来画评分
+
+`utility.output.visualize_network`
+
+原本想用tensorboard来可视化，但是我这里版本兼容不了，不知道你们行不行
+
+`saveResult(_metrics:list,savePath:str)`
+
+用来保存评分为 json 文件
+
+对 `checkpoint(model, optimizer, epoch, useTimeDir=False)` 作了修改
+
+能够按照时间来保存
+
+###### 文件结构
+
+test放的都是测试文件，垃圾内容
+
+utility就是所有有用的模块
+
+reference放大家自己的参考资料
+
+model放模型结果
+
+process放注释内容
+
+log_res放日志文件
+
+###### PS
+
+大家有任何代码上的疑问可随时提问
+
