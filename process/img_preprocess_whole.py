@@ -3,6 +3,8 @@ from PIL import *
 import numpy as np
 import cv2
 from cv2 import *
+import os
+import random
 
 
 DATA_ROOT = r'D:\onedrive\eyisheng\OneDrive\files\大三下\科研\金属分类\data'
@@ -106,7 +108,20 @@ def ImgWriter():
     saveImgToFiles(img_data)
     return
 
+def RemoveImgInFolder(path_dir, ratio) :
+    # path文件夹路径，ratio删除比例
+    filelist = os.listdir(path_dir)
+    rmfilelist = random.sample(filelist, int(ratio*len(filelist)))
+    for f in rmfilelist :
+        filepath = os.path.join(path_dir, f)
+        if os.path.isfile(filepath):
+            os.remove(filepath)
+    return
 
+def ImgSummary(path_dirs):
+    filelists = [ os.listdir(x) for x in path_dirs ]
+    _ = [print(p,len(x)) for x,p in zip(filelists,path_dirs)]
+    return
 # jpgfile = Image.open(os.path.join(DATA_PATH,r'2\LY01-N1074.jpg'))
 # jpgfile = np.array(jpgfile)
 # jpgfile.shape

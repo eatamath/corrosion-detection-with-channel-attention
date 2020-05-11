@@ -234,3 +234,47 @@ log_res放日志文件
 
 
 
+
+
+
+
+## Notes
+
+### 损失函数
+
+参考资料
+
+- [pytorch loss function 总结](https://www.jianshu.com/p/579a0f4cbf24)
+
+可以尝试的 loss
+
+- KLDivLoss
+- CrossEntropyLoss
+
+### 初始化
+
+参考资料
+
+Xavier初始法论文：[http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf](https://link.zhihu.com/?target=http%3A//jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf)
+
+He初始化论文：[https://arxiv.org/abs/1502.01852](https://link.zhihu.com/?target=https%3A//arxiv.org/abs/1502.01852)
+
+### 优化
+
+>adam,adadelta等,在小数据上,我这里实验的效果不如sgd, sgd收敛速度会慢一些，但是最终收敛后的结果，一般都比较好。如果使用sgd的话,可以选择从1.0或者0.1的学习率开始,隔一段时间,在验证集上检查一下,如果cost没有下降,就对学习率减半. 我看过很多论文都这么搞,我自己实验的结果也很好. 当然,也可以先用ada系列先跑,最后快收敛的时候,更换成sgd继续训练.同样也会有提升.据说adadelta一般在分类问题上效果比较好，adam在生成问题上效果比较好。
+
+
+
+### Ensemble
+
+> Ensemble是论文刷结果的终极核武器,深度学习中一般有以下几种方式
+>
+> - 同样的参数,不同的初始化方式
+> - 不同的参数,通过cross-validation,选取最好的几组
+> - 同样的参数,模型训练的不同阶段，即不同迭代次数的模型。
+> - 不同的模型,进行线性融合. 例如RNN和传统模型.
+
+### 参考资料
+
+[你有哪些deep learning（rnn、cnn）调参的经验？](https://www.zhihu.com/question/41631631/answer/862075836)
+
