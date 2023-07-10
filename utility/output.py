@@ -39,3 +39,11 @@ def saveResult(_metrics:list,savePath:str):
         json.dump(_metrics,f)
     return
         
+def savePredTest(Ypred:list, Ytest:list, savePath:str):
+    res = {
+        "pred":Ypred,
+        "test":Ytest,
+    }
+    with open(os.path.join(savePath,'pred-test.txt'),'w+') as f:
+        json.dump(res,f)
+    return
