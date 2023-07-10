@@ -1,5 +1,7 @@
 # metallic
 
+This is repo for our paper: [A channel attention based deep neural network for automatic metallic corrosion detection](https://www.sciencedirect.com/science/article/abs/pii/S2352710221009049).
+
 ### project structure specification
 
 preprocess.ipynb --- for image preprocessing
